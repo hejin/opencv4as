@@ -28,20 +28,24 @@ use opencv 2.4.13.5 without opencv manager to demo opencv sample tutorial2.
 * open and change the app layout file (refer the project's 'app/src/main/res/layout/content_main.xml'). It puts the cameraView component in and deleted the original string component.
 * make necessary changes to '${Your project root directory}/app/src/main/java/${your_pkgname}/MainActivity.java'. The main work is to add opencv_java library initialiation logic in, and the video capture and transform(gray, edge and feature detection) logic.
 * add CAMERA related permission grant in project 'app/src/main/AndroidManifest.xml' as following:
-  *     <uses-permission android:name="android.permission.CAMERA"/>
-  *     <uses-feature android:name="android.hardware.camera"/>
-  *     <uses-feature android:name="android.hardware.camera.autofocus"/>
-  *     <uses-feature android:name="android.hardware.camera.front"/>
-  *     <uses-feature android:name="android.hardware.camera.front.autofocus"/>
+```
+       <uses-permission android:name="android.permission.CAMERA"/>
+       <uses-feature android:name="android.hardware.camera"/>
+       <uses-feature android:name="android.hardware.camera.autofocus"/>
+       <uses-feature android:name="android.hardware.camera.front"/>
+       <uses-feature android:name="android.hardware.camera.front.autofocus"/>
+```
 * modify the CMakeLists.txt to add opencv related stuff(include directory and libs) in:
-  * include_directories(${CMAKE_CURRENT_SOURCE_DIR}/app/src/main/cpp/include)
-  * add_library( lib_opencv SHARED IMPORTED )
-  * set_target_properties(lib_opencv PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/src/main/jniLibs/${ANDROID_ABI}/libopencv_java.so)
-  * target_link_libraries( # Specifies the target library.
-  *                     native-lib
-  *                     # Links the target library to the log library
-  *                     # included in the NDK.
-  *                     ${log-lib}
-  *                     lib_opencv
-  *                     )
+```
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/app/src/main/cpp/include)
+   add_library( lib_opencv SHARED IMPORTED )
+   set_target_properties(lib_opencv PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/src/main/jniLibs/${ANDROID_ABI}/libopencv_java.so)
+   target_link_libraries( # Specifies the target library.
+                       native-lib
+                       # Links the target library to the log library
+                       # included in the NDK.
+                       ${log-lib}
+                       lib_opencv
+                       )
+```
 * make and run!
